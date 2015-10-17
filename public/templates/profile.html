@@ -54,7 +54,7 @@
 				<div class="row" ng-repeat="feed in newfeedDetails">
 					<div class="panel panel-default">
 						<div class="panel-heading">
-							<span class="pull-right">{{ feed.timestamp }}</span> {{
+							<span class="pull-right">{{ feed.timestamp | date:"MM/dd/yyyy 'at' h:mma" }}</span> {{
 							feed.userid }}
 						</div>
 						<div class="panel-body">

@@ -7,7 +7,8 @@
 					<a href="/" class="navbar_logo">mf</a>
 				</div>
 				<nav class="collapse navbar-collapse" role="navigation">
-					<form class="navbar-form navbar-left" ng-submit="showSearchResult()">
+					<form class="navbar-form navbar-left"
+						ng-submit="showSearchResult()">
 						<div class="input-group input-group-sm" style="width: 500px;">
 							<input type="text" class="form-control"
 								placeholder="Search My Facebook" name="search" id="search"
@@ -72,10 +73,19 @@
 	<div id="createModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
-				<div class="modal-header" style="font-size: initial;">Create
-					New Group</div>
+				<div class="modal-header" style="font-size: initial;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					Create New Group
+				</div>
 				<div class="modal-body" style="padding: 20px 50px;">
 					<form role="form">
+						<div class="row ng-if" ng-show="groupModal">
+							<span class="error text-danger text-right" ng-show="groupModal">Form
+								cannot be empty!</span>
+						</div>
 						<div class="form-group">
 							<div class="row">
 								<div class="col-xs-3">
@@ -104,7 +114,7 @@
 					<div>
 						<button type="button" class="btn btn-default btn-sm"
 							data-dismiss="modal" aria-hidden="true">Cancel</button>
-						<button class="btn btn-primary btn-sm" data-dismiss="modal"
+						<button class="btn btn-primary btn-sm"
 							style="background: #47639E;" aria-hidden="true"
 							ng-click="createNewGroup()">Create</button>
 					</div>

@@ -15,6 +15,7 @@ myFacebook.controller('GroupController',function($scope,$rootScope,dataService,$
 		var userName = $rootScope.userName;
 		var groupName = $scope.groupName;
 		$scope.isAdmin=false;
+		$scope.isAdminDelete=true;
 
 		var url = "getGroupAdmin/"+groupName;
 		dataService.getData(url,function(err,res){
@@ -25,6 +26,7 @@ myFacebook.controller('GroupController',function($scope,$rootScope,dataService,$
 				$scope.groupAdmin = res.data[0].createdby;
 				if((($scope.groupAdmin).localeCompare(userName))==0){
 					$scope.isAdmin = true;
+					$scope.isAdminDelete=false;
 				}
 			}
 		});

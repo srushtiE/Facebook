@@ -175,6 +175,22 @@ myFacebook.controller('UserProfileController',function($scope,$rootScope,dataSer
 			break;
 		case 'interests' :
 			$scope.interests = true;
+			dataService.getData('getUserInterests/'+$scope.searchedUserName,function(err,res){
+				if(err){
+					console.log(err);
+				}else{
+					console.log(res);
+					$scope.userSearchMusicInterest = res.data.filter(function(obj){
+						return obj.category=="Music";
+					});
+					$scope.userSearchShowsInterest = res.data.filter(function(obj){
+						return obj.category=="Shows";
+					});
+					$scope.userSearchSportsInterest = res.data.filter(function(obj){
+						return obj.category=="Sports";
+					});
+				}
+			});
 			$scope.frnd = false;
 			$scope.about = false;
 			break;

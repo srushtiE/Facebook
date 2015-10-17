@@ -43,7 +43,7 @@ myFacebook.controller('UserController',function($scope,$rootScope,dataService,$l
 			}
 		});
 	}
-	
+
 	function getPendingFriendsList(){
 		console.log("in getPendingFriendsList");
 		$scope.pendingFriends=[];
@@ -57,7 +57,7 @@ myFacebook.controller('UserController',function($scope,$rootScope,dataService,$l
 			}
 		});
 	}
-	
+
 	$scope.getOverviewDetails=function(ov){
 		$scope.overviewDetails =[];
 		$scope.ovid='0';
@@ -145,34 +145,38 @@ myFacebook.controller('UserController',function($scope,$rootScope,dataService,$l
 			}
 		}
 	};
-	
+
 	$scope.changeModal = function(ovid){
 		console.log("change modal = "+ovid);
 		if(ovid)
 			$scope.ovid = ovid;
 	};
-	
+
 	$scope.addDetail=function(){
-		
+		$scope.addovModal=false;
 		console.log("in add detail function");
-		var ovdetails={
-				ovid : $scope.ovid,
-				userName : $rootScope.userName,
-				info : $scope.newDetails
-		};
-		
-		dataService.postData('addOverviewDetails',ovdetails,function(err,res){
-			if(err){
-				console.log(err);
-			}else{
-				console.log(res.data);
-				$scope.newDetails="";
-				$scope.getOverviewDetails('Overview');
-			}
-		});
+		if($scope.newDetails){
+			var ovdetails={
+					ovid : $scope.ovid,
+					userName : $rootScope.userName,
+					info : $scope.newDetails
+			};
+
+			dataService.postData('addOverviewDetails',ovdetails,function(err,res){
+				if(err){
+					console.log(err);
+				}else{
+					console.log(res.data);
+					$scope.newDetails="";
+					$scope.getOverviewDetails('Overview');
+				}
+			});
+		}else{
+			$scope.addovModal=true;
+		}
 	};
-	
-	
+
+
 	$scope.tabActive=function(tabName){
 		switch(tabName){
 		case 'about' : 
@@ -208,7 +212,77 @@ myFacebook.controller('UserController',function($scope,$rootScope,dataService,$l
 			break;
 		}
 	};
-	
+
+	$scope.addInterestsMusic=function(){
+		$scope.addmuModal=false;
+		if($scope.newNameMusic && $scope.newLabelMusic){
+			var interestMusicDetails={
+					category : 'Music',
+					name : $scope.newNameMusic,
+					label : $scope.newLabelMusic,
+					userName : $rootScope.userName
+			};
+
+			dataService.postData('addUserInterests',interestMusicDetails,function(err,res){
+				if(err){
+					console.log(err);
+				}else{
+					console.log(res.data);
+					$scope.tabActive('interests');
+				}
+			});
+		}else{
+			$scope.addmuModal=true;
+		}
+	};
+
+	$scope.addInterestsShows=function(){
+		$scope.addshModal=false;
+		if($scope.newNameShows && $scope.newLabelShows){
+			var interestShowsDetails={
+					category : 'Shows',
+					name : $scope.newNameShows,
+					label : $scope.newLabelShows,
+					userName : $rootScope.userName
+			};
+
+			dataService.postData('addUserInterests',interestShowsDetails,function(err,res){
+				if(err){
+					console.log(err);
+				}else{
+					console.log(res.data);
+					$scope.tabActive('interests');
+				}
+			});
+		}else{
+			$scope.addshModal=true;
+		}
+	};
+
+
+	$scope.addInterestsSports=function(){
+		$scope.addspModal=false;
+		if($scope.newNameSports && $scope.newLabelSports){
+			var interestSportsDetails={
+					category : 'Sports',
+					name : $scope.newNameSports,
+					label : $scope.newLabelSports,
+					userName : $rootScope.userName
+			};
+
+			dataService.postData('addUserInterests',interestSportsDetails,function(err,res){
+				if(err){
+					console.log(err);
+				}else{
+					console.log(res.data);
+					$scope.tabActive('interests');
+				}
+			});
+		}else{
+			$scope.addspModal=true;
+		}
+	};
+
 	$scope.acceptFriendRequest=function(pfName){
 		var requestDetails={
 				withUser : pfName,
@@ -223,8 +297,7 @@ myFacebook.controller('UserController',function($scope,$rootScope,dataService,$l
 			}
 		});
 	};
-	
-	
-	
-	
+
+
+
 });

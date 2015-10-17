@@ -83,32 +83,37 @@ myFacebook.controller('HomeController',function($scope,$rootScope,dataService,$l
 	}
 
 	$scope.createNewGroup=function(){
-		var newGroupDetails={
-				userName : $rootScope.userName,
-				groupName : $scope.newgroupName
-		};
+		$scope.groupModal=false;
+		if ($scope.newgroupName && $scope.newMemberName){
+			var newGroupDetails={
+					userName : $rootScope.userName,
+					groupName : $scope.newgroupName
+			};
 
-		dataService.postData('addGroup',newGroupDetails,function(err,res){
-			if(err){
-				console.log(err);
-			}else{
-				console.log(res.data);
-				$rootScope.newMember = $scope.newMemberName;
-				var addNewMemberDetail = {
-						groupName : $scope.newgroupName,
-						userName : $scope.newMemberName
-				};
-				dataService.postData('addMember',addNewMemberDetail,function(err,res){
-					if(err){
-						console.log(err);
-					}else{
-						$scope.newMemberName = "";
-						$scope.newgroupName = "";
-						$scope.getHomePage();
-					}
-				});
-			}
-		});
+			dataService.postData('addGroup',newGroupDetails,function(err,res){
+				if(err){
+					console.log(err);
+				}else{
+					console.log(res.data);
+					$rootScope.newMember = $scope.newMemberName;
+					var addNewMemberDetail = {
+							groupName : $scope.newgroupName,
+							userName : $scope.newMemberName
+					};
+					dataService.postData('addMember',addNewMemberDetail,function(err,res){
+						if(err){
+							console.log(err);
+						}else{
+							$scope.newMemberName = "";
+							$scope.newgroupName = "";
+							$scope.getHomePage();
+						}
+					});
+				}
+			});
+		}else{
+			$scope.groupModal=true;
+		}
 	};
 
 	$scope.logOutUser=function(){
@@ -129,6 +134,8 @@ myFacebook.controller('HomeController',function($scope,$rootScope,dataService,$l
 				}
 			}else{
 				console.log(res.data);
+				$window.localStorage.userName="";
+				$window.localStorage.userFName="";
 				/*$rootScope.userFName = res.data.firstname;
 					$rootScope.userLName = res.data.lastname;
 					$rootScope.userGender = res.data.gender;

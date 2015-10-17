@@ -86,7 +86,7 @@ exports.signUp = function(req,res){
 		if(err){
 			console.log("error occurred");
 			res.status(500).json({
-				message : "error"
+				message : "User Already Exists!"
 			});
 		}else{
 			if(flag){
@@ -159,6 +159,7 @@ exports.logOut = function(req,res){
 		if(err){
 			console.log("error occurred");
 			res.status(500).json({
+				status : 500,
 				message : "error"
 			});
 		}else{

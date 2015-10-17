@@ -18,7 +18,8 @@ myFacebook.controller('GetUserController',function($scope,$rootScope,dataService
 				}else{
 					if(err.status === 403){
 						console.log("Error" + err);
-						$location.path('/invalid');
+						$scope.invalidError=true;
+						//$location.path('/invalid');
 					}
 				}
 			}else{
@@ -37,7 +38,11 @@ myFacebook.controller('GetUserController',function($scope,$rootScope,dataService
 			}
 		});
 	};
-
+	
+	$scope.closeError=function(){
+		$scope.uName="";
+		$scope.pswd="";
+	};
 	/*$scope.logOutUser=function(){
 		var userDetails = {
 				userName : $scope.uName

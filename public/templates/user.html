@@ -81,7 +81,6 @@
 		</div>
 	</div>
 
-
 	<div class="row ng-hide" style="padding-top: 3%;" ng-show="frnd">
 		<div class="col-xs-8 col-xs-offset-2 panel panel-default">
 			<div class="panel-body">
@@ -99,7 +98,7 @@
 		</div>
 	</div>
 	<div class="row ng-hide" style="padding-top: 3%;"
-		ng-show="pendingFriends.length>0">
+		ng-show="pendingFriends.length>0 && frnd">
 		<div class="col-xs-8 col-xs-offset-2 panel panel-default">
 			<div class="panel-body">
 				<div class="col-xs-12" ng-repeat="pf in pendingFriends"
@@ -117,12 +116,12 @@
 		</div>
 	</div>
 
-
 	<div class="row ng-hide" style="padding-top: 3%;" ng-show="interests">
 		<!-- <div ng-repeat="int in interest"> -->
 		<div class="col-xs-8 col-xs-offset-2 panel panel-default customPanel">
 			<div class="panel-body">
-				<button class="btn btn-sm pull-right text-primary">
+				<button class="btn btn-sm pull-right text-primary"
+					data-toggle="modal" data-target="#addIntMusicModal">
 					<span class="glyphicon glyphicon-ok" />Add Music
 				</button>
 				<span class="glyphicon glyphicon-music" style="font-size: medium;" />
@@ -145,7 +144,8 @@
 		<div class="col-xs-8 col-xs-offset-2 panel panel-default customPanel">
 			<div class="panel-body">
 				<button class="btn btn-sm pull-right text-primary">
-					<span class="glyphicon glyphicon-ok" />Add Shows
+					<span class="glyphicon glyphicon-ok" data-toggle="modal"
+						data-target="#addIntShowsModal" />Add Shows
 				</button>
 				<span class="glyphicon glyphicon-film" style="font-size: medium;" />
 				Shows
@@ -167,7 +167,8 @@
 		<div class="col-xs-8 col-xs-offset-2 panel panel-default customPanel">
 			<div class="panel-body">
 				<button class="btn btn-sm pull-right text-primary">
-					<span class="glyphicon glyphicon-ok" />Add Sports
+					<span class="glyphicon glyphicon-ok" data-toggle="modal"
+						data-target="#addIntSportsModal" />Add Sports
 				</button>
 				<span class="glyphicon glyphicon-screenshot"
 					style="font-size: medium;" /> Sports
@@ -191,8 +192,9 @@
 	<div id="addModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
-				<div class="modal-header" style="font-size: initial;">Add
-					Details</div>
+				<div class="modal-header" style="font-size: initial;">
+					Add Details
+				</div>
 				<div class="modal-body" style="padding: 20px 50px;">
 					<form role="form">
 						<div class="form-group">
@@ -218,17 +220,31 @@
 	</div>
 
 
-	<div id="addIntModal" class="modal fade" role="dialog">
+	<div id="addIntMusicModal" class="modal fade" role="dialog">
 		<div class="modal-dialog modal-md">
 			<div class="modal-content">
-				<div class="modal-header" style="font-size: initial;">Add
-					Interests</div>
+				<div class="modal-header" style="font-size: initial;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					Add Music
+				</div>
 				<div class="modal-body" style="padding: 20px 50px;">
 					<form role="form">
+						<div class="row ng-if" ng-show="addmuModal">
+							<span class="error text-danger text-right" ng-show="groupModal">Form
+								cannot be empty!</span>
+						</div>
 						<div class="form-group">
 							<div class="row">
 								<div class="col-xs-12">
-									<input type="text" class="form-control" ng-model="newDetails" />
+									<label>Name </label> <input type="text" class="form-control"
+										ng-model="newNameMusic" />
+								</div>
+								<div class="col-xs-12">
+									<label>Label </label> <input type="text" class="form-control"
+										ng-model="newLabelMusic" />
 								</div>
 							</div>
 						</div>
@@ -238,9 +254,97 @@
 					<div>
 						<button type="button" class="btn btn-default btn-sm"
 							data-dismiss="modal" aria-hidden="true">Cancel</button>
-						<button class="btn btn-primary btn-sm" data-dismiss="modal"
+						<button class="btn btn-primary btn-sm"
 							style="background: #47639E;" aria-hidden="true"
-							ng-click="addInterests()">Add</button>
+							ng-click="addInterestsMusic()">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="addIntShowsModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header" style="font-size: initial;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					Add Shows
+				</div>
+				<div class="modal-body" style="padding: 20px 50px;">
+					<form role="form">
+						<div class="row ng-if" ng-show="addshModal">
+							<span class="error text-danger text-right" ng-show="groupModal">Form
+								cannot be empty!</span>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-12">
+									<label>Name </label> <input type="text" class="form-control"
+										ng-model="newNameShows" />
+								</div>
+								<div class="col-xs-12">
+									<label>Label </label> <input type="text" class="form-control"
+										ng-model="newLabelShows" />
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<div>
+						<button type="button" class="btn btn-default btn-sm"
+							data-dismiss="modal" aria-hidden="true">Cancel</button>
+						<button class="btn btn-primary btn-sm"
+							style="background: #47639E;" aria-hidden="true"
+							ng-click="addInterestsShows()">Add</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div id="addIntSportsModal" class="modal fade" role="dialog">
+		<div class="modal-dialog modal-md">
+			<div class="modal-content">
+				<div class="modal-header" style="font-size: initial;">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					Add Sports
+				</div>
+				<div class="modal-body" style="padding: 20px 50px;">
+					<form role="form">
+						<div class="row ng-if" ng-show="addspModal">
+							<span class="error text-danger text-right" ng-show="groupModal">Form
+								cannot be empty!</span>
+						</div>
+						<div class="form-group">
+							<div class="row">
+								<div class="col-xs-12">
+									<label>Name </label> <input type="text" class="form-control"
+										ng-model="newNameSports" />
+								</div>
+								<div class="col-xs-12">
+									<label>Label </label> <input type="text" class="form-control"
+										ng-model="newLabelSports" />
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<div>
+						<button type="button" class="btn btn-default btn-sm"
+							data-dismiss="modal" aria-hidden="true">Cancel</button>
+						<button class="btn btn-primary btn-sm"
+							style="background: #47639E;" aria-hidden="true"
+							ng-click="addInterestsSports()">Add</button>
 					</div>
 				</div>
 			</div>

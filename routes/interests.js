@@ -43,8 +43,8 @@ exports.getUserInterests=function(req,res){
 };
 
 exports.addUserInterests=function(req,res){
-	var query = "insert into ?? values(?,?,?,?)";
-	var params = ['userinterest_table',req.body.category,req.body.name,req.body.label,req.body.userName];
+	var query = "insert into ?? (??,??,??,??) values(?,?,?,?)";
+	var params = ['userinterest_table','category','name','label','userid',req.body.category,req.body.name,req.body.label,req.body.userName];
 	mysql.fetchData(function(err,rows){
 		if(err){
 			console.log("error occurred");
